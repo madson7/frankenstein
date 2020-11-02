@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: List
+metadata:
+ namespace: frankenstein
+items:
+  - apiVersion: v1
+    kind: Secret
+    type: Opaque
+    metadata:
+     name: db-secret
+     namespace: frankenstein
+    data:
+     db-root-pass: "cm9vdF9wd2Q="
+     db-zbx-user: "emFiYml4"
+     db-zbx-pass: "emFiYml4"

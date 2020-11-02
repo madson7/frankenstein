@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zabbix-web
+  labels:
+    app: zabbix
+  namespace: frankenstein
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+    name: web-http
+  - port: 443
+    targetPort: 8443
+    name: web-https
+  selector:
+    name: zabbix-web
+  # externalIPs:
+  # - <Specify external IP here>
+  type: NodePort
