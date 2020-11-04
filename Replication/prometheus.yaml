@@ -23,12 +23,7 @@ spec:
           - name: config-job
             mountPath: /etc/prometheus/prometheus.yml
             subPath: prometheus.yml
-          - name: prometheus-volume
-            mountPath: /etc/prometheus
       volumes:
         - name: config-job
           configMap:
             name: prometheus-config
-        - hostPath:
-            path: /prometheus
-          name: prometheus-volume

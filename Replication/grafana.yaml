@@ -18,19 +18,30 @@ spec:
         runAsUser: 472
         fsGroup: 472
       containers:
-      - name: grafana
-        image: grafana/grafana
-        env:
-        - name: GF_SECURITY_ADMIN_PASSWORD
-          value: admin
-        - name: GF_INSTALL_PLUGINS
-          value: alexanderzobnin-zabbix-app 3.12.0,snuids-radar-panel,magnesium-wordcloud-panel,grafana-clock-panel,grafana-piechart-panel,camptocamp-prometheus-alertmanager-datasource,vonage-status-panel,grafana-worldmap-panel,raintank-worldping-app,agenty-flowcharting-panel
-        ports:
-        - containerPort: 3000
-        volumeMounts:
-          - name: grafana
+        - name: grafana
+          image: grafana/grafana:7.1.0
+          ports:
+          - containerPort: 3000
+            name: http
+          env:
+          - name: GF_SECURITY_ADMIN_PASSWORD
+            value: admin
+          - name: GF_INSTALL_PLUGINS
+            value: alexanderzobnin-zabbix-app 3.12.0,snuids-radar-panel,magnesium-wordcloud-panel,grafana-clock-panel,grafana-piechart-panel,camptocamp-prometheus-alertmanager-datasource,vonage-status-panel,grafana-worldmap-panel,raintank-worldping-app,agenty-flowcharting-panel
+          volumeMounts:
+          - name: grafana-storage
             mountPath: /var/lib/grafana
+          - name: grafana-datasources
+            mountPath: /etc/grafana/provisioning/datasources
+          - name: grafana-dashboards
+            mountPath: /etc/grafana/provisioning/dashboards
       volumes:
        - hostPath:
-          path: /grafana
-         name: grafana
+          path: /Gf/storage
+         name: grafana-storage
+       - hostPath:
+          path: /Gf/datasources
+         name: grafana-datasources
+       - hostPath:
+          path: /Gf/dashboards
+         name: grafana-dashboards
